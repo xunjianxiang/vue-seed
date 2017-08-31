@@ -16,7 +16,12 @@ import axios from 'axios';
         <el-table-column prop="age" label="年龄"></el-table-column>
         <el-table-column label="操作">
           <template scope="scope">
-            <el-button size="small" @click="update(scope.row)">年龄增长</el-button>
+            <el-tooltip class="item" effect="dark" content="年龄增长" placement="top">
+              <el-button size="small" type="text" icon="arrow-up" @click="up(scope.row)"></el-button>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="年龄降低" placement="top">
+              <el-button size="small" type="text" icon="arrow-down" @click="down(scope.row)"></el-button>
+            </el-tooltip>
           </template>
         </el-table-column>
       </table>
@@ -28,8 +33,13 @@ export default class DashboardComponent extends Vue {
   mounted () {
     this.$store.dispatch('users/get');
   }
-  update (item) {
+  up (item) {
     item.age ++;
+    this.$store.dispatch('users/set', item);
+  }
+  down (item) {
+    if (!item.age) return;
+    item.age --;
     this.$store.dispatch('users/set', item);
   }
   get items () {

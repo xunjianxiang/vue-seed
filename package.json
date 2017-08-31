@@ -4,6 +4,9 @@
   "description": "A seed project for vue 2.",
   "scripts": {
     "start": "npm install",
+    "test:pro": "karma start",
+    "test:dev": "NODE_ENV=dev karma start --no-single-run",
+    "prebuild": "npm run test:pro",
     "build": "webpack -p --progress",
     "dev": "NODE_ENV=dev webpack-dev-server -d --hot --inline",
     "mock": "NODE_ENV=mock webpack-dev-server -d --hot --inline"
